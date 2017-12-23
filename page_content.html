@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<link rel="stylesheet" href="assets/tabview/tabview.css" />
+		<title></title>
+		<style>
+			.iframe_container{
+				bottom: 0;
+			    left: 0;
+			    position: absolute;
+			    right: 0;
+			    top: 37px;
+			}			
+			body {
+			     overflow-x : hidden;  /*去掉横条*/
+			}
+
+		</style>
+	</head>
+	<body onload="init();" style="margin:0;padding:0; background:#eef1f5">
+		<div id="yuicontainer"></div>
+		<script type="text/javascript" src="assets/global/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="assets/tabview/yahoo-dom-event.js" ></script>
+		<script type="text/javascript" src="assets/tabview/connection-min.js" ></script>
+		<script type="text/javascript" src="assets/tabview/element-beta-min.js" ></script>
+		<script type="text/javascript" src="assets/tabview/tabview-min.js" ></script>
+		<script>
+        var tabView = new YAHOO.widget.TabView();
+        var tabHeight;
+        //最多打开tab个数
+        var tabNum = 8;
+        init = function()
+        {
+            //将HTMLElement追加到提供的父节点中。void appendTo ( parentNode , before )
+            tabView.appendTo('yuicontainer');
+            addTab('0', '工作台', 'detail.html');
+
+        }
+
+        addTab = function(id,label,src)
+        {
+
+            // set ( key , value , silent ) 添加属性
+            // 设置配置的值。
+            // 参数：
+            // key <String> 属性的名称
+            // value <Any> 要应用于该属性的值
+            // silent <Boolean> 是否抑制变更事件
+            //同一菜单只允许打开一次,多次打开视为切换tab页
+            //get ( key )返回属性的当前值。getTab()返回指定索引处的Tab实例。
+            for(var tabIndex=0;tabIndex<tabView.get("tabs").length;tabIndex++){
+                var tab=tabView.getTab(tabIndex);
+                if(tab.get("id")==id){
+                    tabView.set('activeTab',tab,true);
+                    return;
+                }
+            }
+
+            //if(document.getElementById("iFrame"+id))
+            //{
+            //是否一个ID链接只能打开一个tab
+            //}
+            //判断是否tab个数达到限定个数
+
+            if(tabView.get("tabs").length == tabNum)
+            {
+                if(!confirm("打开窗口个数已经达到"+tabNum+"个,新开窗口将会关闭第一个窗口,是否继续?"))
+                {
+                    return;
+                }
+                //删除第一个窗口
+                tabView.removeTab(tabView.getTab("0"));//从TabView中删除指定的Tab
+            }
+            var labelText = label;
+            var content = '<div class="iframe_container"><div id="tobarDiv'+id+'" class="tobarDiv"></div><iframe class="tabFrame" id="iFrame'+id+'" name="iFrame'+id+'" frameBorder=0 scrolling="yes" width="100%" height="100%" resizeable="yes"  src="'+src+'"></iframe></div>';
+            // YAHOO.widget.Tab ( element , properties ) 初始化tab
+            // 参数：
+            // element <HTMLElement | String> （可选）表示TabView的html元素。如果没有提供，则会创建一个元素。
+            // properties <Object> 初始属性的关键映射
+            var tab = new YAHOO.widget.Tab({ label: labelText,content:content });//content - String The tab's content.label - String The tab's label text (or innerHTML).
+            tabView.addTab(tab);
+            tabView.set('activeTab',tab,true);
+            tab.set('title',labelText);
+            tab.set("id",id);
+            tab.addListener('click',dblClickEvent);
+            // void addListener ( type , fn , obj , scope )
+            // 为给定事件添加一个侦听器。这些可能是DOM或customEvent侦听器。任何通过fireEvent触发的事件都可以被侦听。所有的处理程序接收一个事件对象。
+            // 参数：
+            // type <String> 要听的活动的名称
+            // fn <Function> 事件触发时调用的处理程序
+            // obj <Any> 一个变量传递给处理程序
+            // scope <Object> 用于处理程序作用域的对象
+            /*console.log($('#yuicontainer .iframe_container').get(0));
+            var par_height=$(window.parent.document).find("#iframe").css('height');
+            $('.iframe_container').css('height',par_height);*/
+        }
+        //双击TAB头关闭事件
+        function dblClickEvent(e)
+        {
+        	if($(e.target).is('img'))
+        	{
+        		var tab=tabView.get('activeTab');
+	            var id=tab.get("id");
+	            document.getElementById("iFrame"+id).src="";
+	            tabView.removeTab(tab);
+        		
+        	}
+        	else{
+        		
+        	}   	
+        }
+
+        //获取当前TAB的resource_id
+        function getResourceId()
+        {
+            if(tabView.get('activeTab'))
+            {
+                return tabView.get('activeTab').get("id");
+            }
+            else
+            {
+                return null;
+            }
+
+        }
+
+        function setTobarDiv(id,content){
+/*            var tobarDiv=document.getElementById("tobarDiv"+id);
+            if(tobarDiv!=null&&tobarDiv){
+                tobarDiv.innerHTML=content;
+            }*/
+        }
+        /**
+         * 关闭菜单
+         * tabId
+                         菜单编号
+         * a
+         */
+        function closeTab(tabId)
+        {
+            for(var tabIndex=0;tabIndex<tabView.get("tabs").length;tabIndex++){
+                var tab=tabView.getTab(tabIndex);
+                if(tab.get("id")==tabId){
+                    document.getElementById("iFrame"+tabId).src="";
+                    tabView.removeTab(tab);
+                    return;
+                }
+            }
+        }
+		</script>
+	</body>
+</html>

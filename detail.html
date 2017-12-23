@@ -1,0 +1,419 @@
+<!-- 详情页面 -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+  <title></title>
+    <link href="assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <!-- elementUI css表 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <style>
+            body{
+                background-color: #eef1f5;
+                padding: 0 20px;
+            }
+            div{
+                overflow: hidden;
+            }
+          /* 输入框 placeholder字体颜色*/
+            ::-webkit-input-placeholder {color:#999;}
+        　　:-moz-placeholder {color:#999;}
+        　　::-moz-placeholder {color:#999;}
+        　　:-ms-input-placeholder {color:#999;}
+            .detailForm{
+                margin-top: 15px;
+            }
+            .detailForm .row{
+                margin-bottom: 17px;
+            }
+            .detailForm .operationBtn .pull-right,.detailForm .operationBtn .btn-info{
+                margin-right: 10px;
+            }
+            .detailForm .bgcolor{
+                background-color: #fff;
+                border-radius: 2px;
+                padding: 0;
+                margin-top: 5px;
+                margin-bottom: 5px;
+                height: 34px;
+            }
+            .detailForm .chooseType{
+                margin-top: 9px;
+            }
+            .detailForm .bgcolor label{
+                line-height: 35px;
+                display: block;
+                padding-left: 5px;
+                width: 30%;
+                height: 100%;
+                float: left;
+                color: grey;
+                font-weight: normal;
+                z-index: 2;
+            }
+            .detailForm .bgcolor label,.detailForm .bgcolor .formComponent[disabled]{
+                 color:#b3b3b3 ;
+            }
+            .detailForm .bgcolor .formComponent[disabled]{
+                background-color: #fff;
+               
+            }
+            .detailForm .bgcolor .formComponent{
+                display: block;
+                width: 70%;
+                height: 34px;
+                float: left;
+                border: none;
+                z-index: 1;
+                padding-left: 15px;
+            }
+            
+            .detailForm .bgcolor .formComponent:focus{
+                outline: none;
+            }          
+           
+            /* 下拉列表 */
+            .detailForm .panel{
+                margin-bottom: 0;
+               
+                border: none;
+                border-radius: 0;
+                -webkit-box-shadow: 0 0 0 #fff;
+                box-shadow: 0 0 0 #fff;
+            }
+            .detailForm .information{
+                 background-color: #eef1f5;
+            }
+            .detailForm .panel .panel-heading{
+                background-color: transparent;
+                border-color: none;
+                padding: 0; 
+                border-bottom: none;
+                border-top-right-radius: 0;
+                border-top-left-radius: 0; 
+            }
+            .detailForm .panel .panel-heading .panel-title{
+                font-size: inherit;
+            }
+            .detailForm .panel .panel-collapse .panel-body{
+                padding: 0;
+            }
+            /* 标签页 */
+            .detailForm .tab-content{
+                padding: 0;
+            }
+            .detailForm .noPadding{
+                padding: 0;              
+            }
+            .detailForm .tab-content .getMargin{
+                margin-right: 15px;
+            }
+            .detailForm .tabZoo{
+                background-color: #fff;
+            }
+            .detailForm .tabZoo .bgcolor{
+                border: 1px solid #b3b3b394;
+            }
+            .detailForm .tabZoo .nav-tabs li{
+                margin-bottom: 0;   
+            }
+            .detailForm .tabZoo .nav-tabs li a{
+                color: #B4C7E0;
+            }
+            .detailForm .tabZoo .nav-tabs li a:hover{
+                border-radius: 0;
+            }
+            .detailForm .tabZoo .nav-tabs li.active a{
+                border: none;
+                color: #EA7587;
+                border-bottom: 2px solid #EA7587;
+            }
+            .detailForm .getPadding{
+                padding: 10px 0 10px 15px;
+            }
+            .detailForm #company .getPadding:first-child{
+                border-bottom: 1px solid #b3b3b394;
+            }
+            /* 收起按钮 */
+            .detailForm .upBtn{
+                color: #b3b3b394;
+                cursor: pointer;
+                font-size: 12px;
+                text-decoration: none;
+                line-height: 40px;
+            }
+            .detailForm .upBtn .el-icon-arrow-down{
+                margin-left: 10px;
+            }
+            /* element ui */
+            .detailForm .bgcolor .el-select{
+                display: block;
+                width: 70%;
+                height: 34px;
+                float: left;
+                border: none;
+                z-index: 1;
+            }
+            .detailForm .bgcolor .el-select .el-input{
+                height: 100%;
+            }
+            .detailForm .bgcolor .el-select .el-input input{
+                border: none;
+                border-radius: 0;
+                height: 100%;
+            }
+            
+    </style>
+</head>
+<body>
+    <div class="detailForm col-md-12">
+            
+        <div class="row operationBtn">
+            <button class="btn btn-info">保存</button> 
+            <button class="btn btn-info">保存并新增</button>
+            <button class="btn btn-info">保存并审核</button>
+            <button class="btn btn-info">取消</button>                  
+        </div>                  
+        <div class="row">                                  
+            <!--公司信息  -->
+            <div class="col-md-1"><h4>公司信息</h4></div>
+            <div class="col-md-10">   
+                <div class="col-md-3"><div class="bgcolor col-md-12"><label>编码</label><input type="text" class="formComponent" value="PO1711060111111-002" disabled></div></div>
+                    <div class="col-md-3"><div class="bgcolor col-md-12"><label>名称</label><input type="text" class="formComponent" placeholder="请录入手工单号"></div></div>
+                    <div class="col-md-3"><div class="bgcolor col-md-12"><label>全称</label><input type="text" class="formComponent" placeholder="请选择仓库"></div></div>
+                    <div class="col-md-3">
+                        <div class="bgcolor col-md-12">
+                            <label>上级业务单元</label>
+                            <template>
+                                <el-select v-model="valueHigherUnit">
+                                    <el-option v-for="item in higherUnit" :key="item.valueHigherUnit" :label="item.label" :value="item.valueHigherUnit">
+                                    </el-option>
+                                </el-select>
+                            </template>
+                        </div>
+                    </div>
+                    <el-collapse-transition>
+                        <div v-show="showCompany" class="col-md-12 noPadding">
+                            <div class="col-md-3">
+                                <div class="bgcolor col-md-12">
+                                    <label>启用月份</label>
+                                    <template>
+                                        <el-select v-model="valueMonth">
+                                            <el-option v-for="item in month" :key="item.valueMonth" :label="item.label" :value="item.valueMonth">
+                                            </el-option>
+                                        </el-select>
+                                    </template>
+                                </div>
+                            </div>
+                            <div class="col-md-3"><div class="bgcolor col-md-12"><label>本位币种</label><template>
+                                    <el-select v-model="valueMoney">
+                                        <el-option v-for="item in money" :key="item.valueMoney" :label="item.label" :value="item.valueMoney">
+                                        </el-option>
+                                    </el-select>
+                                </template></div></div>
+                            <div class="col-md-3"><div class="bgcolor col-md-12"><label>所属公司</label><template>
+                                    <el-select v-model="valueCompany">
+                                        <el-option v-for="item in company" :key="item.valueCompany" :label="item.label" :value="item.valueCompany">
+                                        </el-option>
+                                    </el-select>
+                                </template></div></div>
+                            <div class="col-md-3"><div class="bgcolor col-md-12"><label>联系人</label><input type="text" class="formComponent" value="lomen" placeholder="请填入联系人"></div></div>
+                            <div class="col-md-3"><div class="bgcolor col-md-12"><label>电话</label><input type="text" class="formComponent" value="无" placeholder="请填入电话"></div></div>
+                            <div class="col-md-3"><div class="bgcolor col-md-12"><label>地址</label><input type="text" class="formComponent" value="无" placeholder="请填入地址"></div></div>
+                            <div class="col-md-3"><div class="bgcolor col-md-12"><label>备注</label><input type="text" class="formComponent" value="无" placeholder="备注"></div></div>
+                            <div class="col-md-3"><div class="bgcolor col-md-12"><label>启用状态</label><template>
+                                    <el-select v-model="valueState">
+                                        <el-option v-for="item in state" :key="item.valueState" :label="item.label" :value="item.valueState">
+                                        </el-option>
+                                    </el-select>
+                                </template></div></div>  
+                        </div>
+                    </el-collapse-transition>  
+            </div> 
+            <div class="col-md-1">
+                <a class="upBtn" @click="showCompany = !showCompany">
+                    收起<span class="el-icon-arrow-down"></span>
+                </a>
+            </div>                                                                          
+        </div> 
+        <!--组织类型  -->
+        <div class="row">
+            <div class="col-md-1"><h4>组织类型</h4></div>
+            <div class="col-md-10">
+                <div class="col-md-3">
+                    <div class=" chooseType"> <!-- isCheckBusiness,isCheckFinance -->
+                        <template>
+                            <el-checkbox v-model="isCheckCompany">公司</el-checkbox>
+                            
+                    
+                            <el-checkbox v-model="isCheckFinance">财务</el-checkbox>
+                        
+                    
+                            <el-checkbox v-model="isCheckBusiness">业务</el-checkbox>
+                        </template>                              
+                    </div>
+                </div>              
+            </div>            
+        </div> 
+        <!--基础信息  -->  
+        <div class="row">
+            <div class="col-md-1"><h4>基础信息</h4></div>
+            <div class="col-md-10">
+                <div class="col-md-3"><div class="bgcolor col-md-12"><label>版本号</label><input type="text" class="formComponent" value="PO1711063111111-002" disabled></div></div>
+                <div class="col-md-3"><div class="bgcolor col-md-12"><label>版本开始日期</label><input type="text" class="formComponent" placeholder="请录入开始日期"></div></div>
+                <div class="col-md-3"><div class="bgcolor col-md-12"><label>版本结束日期</label><input type="text" class="formComponent" placeholder="请录入结束日期"></div></div>            
+            </div> 
+        </div>  
+        <!-- 公司业务财务bootTab标签页 -->
+        <div class="row tabZoo">
+            <ul class="getPadding nav nav-tabs col-md-12" role="tablist">
+                <li role="presentation" class="active"><a href="#company" aria-controls="company" role="tab" data-toggle="tab">公司</a></li>
+                <li role="presentation"><a href="#business" aria-controls="business" role="tab" data-toggle="tab">业务</a></li>
+                <li role="presentation"><a href="#finance" aria-controls="finance" role="tab" data-toggle="tab">财务</a></li>
+            </ul>
+            <div class="tab-content col-md-12">
+                <div role="tabpanel" class="tab-pane active" id="company">
+                    <div class="getPadding"> 
+                        <div class="noPadding col-md-12">
+                            <div class="noPadding col-md-2">
+                                        <template>
+                                                <el-checkbox v-model="group">集团公司</el-checkbox>
+                                              
+                                        
+                                                <el-checkbox v-model="isUse">是否启用</el-checkbox>
+                                        </template>         
+                               
+                            </div>     
+                        </div>
+                        <div class="noPadding col-md-11">
+                            <div class="noPadding col-md-2 getMargin"><div class="bgcolor col-md-12"><label>上级公司</label><input type="text" class="formComponent" placeholder="请选择上级公司"></div></div>
+                            <div class="noPadding col-md-2 getMargin"><div class="bgcolor col-md-12"><label>法人代表</label><input type="text" class="formComponent" placeholder="请输入法人代表"></div></div>
+                        </div>
+                        </div>
+                     <div class="getPadding col-md-11">
+                            <h4>审计信息</h4>
+                             <el-collapse-transition>
+                                <div v-show="showInformation">
+                                    <div class="noPadding col-md-2 getMargin"><div class="bgcolor col-md-12"><label>创建人</label><input type="text" class="formComponent" value="张三" disabled></div></div>
+                                    <div class="noPadding col-md-2 getMargin"><div class="bgcolor col-md-12"><label>创建时间</label><input type="text" class="formComponent" value="17.11.10" disabled></div></div>
+                                    <div class="noPadding col-md-2 getMargin"><div class="bgcolor col-md-12"><label>修改人</label><input type="text" class="formComponent" value="张三" disabled></div></div>                 
+                                    <div class="noPadding col-md-2 getMargin"><div class="bgcolor col-md-12"><label>修改时间</label><input type="text" class="formComponent" value="17.12.12" disabled></div></div>
+                                    <div class="noPadding col-md-2 getMargin"><div class="bgcolor col-md-12"><label>启用日期</label><input type="text" class="formComponent" value="17.12.12" disabled></div></div>
+                                    <div class="noPadding col-md-2 getMargin"><div class="bgcolor col-md-12"><label>封存日期</label><input type="text" class="formComponent" value="17.12.12" disabled></div></div>                           
+                                    <div class="noPadding col-md-2 getMargin"><div class="bgcolor col-md-12"><label>封存人</label><input type="text" class="formComponent" value="李四" disabled></div></div>                                   
+                                </div>
+                            </el-collapse-transition>
+                        </div>
+                    <!-- 控制展开收起  -->
+                    <div class="getPadding col-md-1">
+                        <a class="upBtn" @click="showInformation = !showInformation">
+                            收起<span class="el-icon-arrow-down"></span>
+                        </a>
+                    </div>   
+                </div>
+           
+                <div role="tabpanel" class="tab-pane" id="business">业务</div>
+                <div role="tabpanel" class="tab-pane" id="finance">财务</div>
+            </div>
+        
+        </div>                                                                
+    </div>
+        <script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+        <script src="assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="vue2.5.11.js"></script>
+        <!-- elementUI js表 -->
+        <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+        <script>
+        new Vue({
+            el: '.detailForm',
+            data() {
+                return {
+                
+                 isCheckCompany:true,//公司复选框初始选种状态
+                 isCheckFinance:false,//财务复选框初始选种状态
+                 isCheckBusiness:false,//业务复选框初始选种状态 
+                 group:true,//集团公司复选框初始选种状态
+                 isUse:false,//是否启用复选框初始选种状态
+
+                 showInformation:true,//初始默认审计信息状态展开
+                 showCompany:true,//初始默认公司计信息状态展开  
+                 valueHigherUnit: '无',//初始上级单元
+                 valueMonth:'请选择月份',//初始月份
+                 valueMoney:'请选择本位币种',//初始本位币种
+                 valueCompany:'请选择所属公司',//初始所属公司
+                 valueState:'启用',//初始启用状态 
+               
+                 higherUnit: [{//上级单元数据
+                    valueHigherUnit: '选项1',
+                    label: '361度'
+                  }, {
+                    valueHigherUnit: '选项2',
+                    label: '恒康'
+                  }, {
+                    valueHigherUnit: '选项3',
+                    label: '红旗连锁'
+                  }],
+                  month: [{//月份
+                    valueMonth:'选项1',
+                    label: '1月'
+                  }, {
+                    valueMonth:'选项2',
+                    label: '2月'
+                  }, {
+                    valueMonth:'选项3',
+                    label: '3月'
+                  }],
+                  money: [{//本位币种
+                    valueMoney:'选项1',
+                    label: 'RMB'
+                  }, {
+                    valueMoney:'选项2',
+                    label: '美元'
+                  }, {
+                    valueMoney:'选项3',
+                    label: '英镑'
+                  },{
+                    valueMoney:'选项4',
+                    label: '日元'
+                  }, {
+                    valueMoney:'选项5',
+                    label: '韩元'
+                  }, {
+                    valueMoney:'选项6',
+                    label: '越南盾'
+                  },{
+                    valueMoney:'选项7',
+                    label: '泰铢'
+                  }, {
+                    valueMoney:'选项8',
+                    label: '港币'
+                  }, {
+                    valueMoney:'选项9',
+                    label: '银元'
+                  }],
+                  company: [{ //   所属公司数据
+                    valueCompany:'选项1',
+                    label: '恒康'
+                  }, {
+                    valueCompany:'选项2',
+                    label: '361度'
+                  }, {
+                    valueCompany:'选项3',
+                    label: '红旗连锁'
+                  }],
+                  state: [{ //启用状态数据
+                    valueState:'选项1',
+                    label: '启用'
+                  }, {
+                    valueState:'选项2',
+                    label: '停用'
+                  }],
+                  
+
+                }
+              }
+        })
+  </script>
+
+</body>
+</html>

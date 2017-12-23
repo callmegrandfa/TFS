@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en">
+    <!--<![endif]-->
+    <head>
+        <meta charset="utf-8" />
+        <title>首页</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
+        <meta content="Preview page of Metronic Admin Theme #2 for calendar page" name="description" />
+        <meta content="" name="author" />
+        <!-- BEGIN GLOBAL MANDATORY STYLES -->
+        <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700&subset=all" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/layouts/layout2/css/layout.min.css" rel="stylesheet" type="text/css" />
+        <link href="assets/layouts/layout2/css/themes/blue.min.css" rel="stylesheet" type="text/css" id="style_color" />
+        <link href="assets/layouts/layout2/css/indexNew.css" rel="stylesheet" type="text/css"> 
+        <link href="assets/layouts/layout2/css/midData.css" rel="stylesheet" type="text/css">     
+        <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css" type="text/css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />  
+        <link href="assets/layouts/layout2/css/common.css" rel="stylesheet" type="text/css">    
+    </head>
+    <body>
+                      
+        <!-- 基础资料-短开始 -->
+        <div class="short-basic-data container-fluid">
+            <!-- 搜索框部分开始 -->
+            <div class="search-component row">
+                <div class="add-btn green-btn col-md-1">
+                    <span>新增</span>
+                </div>
+            
+                <div class="import-btn green-btn col-md-1">
+                    <span>导入</span>
+                </div>
+            
+                <div class="search-input col-md-5">
+                    <input type="text" class="form-control" placeholder="编码/名称..."/>
+                    
+                    <div class="search-btn">
+                        <span>搜索</span>
+                    </div>
+
+                    <div class="high-search" @click='searchShow'>
+                            <span>高级搜索</span>
+                    </div>
+                </div>
+            
+                <div class="gray-btn col-md-1">
+                    <span>导出</span>
+                </div>
+            
+                <div class="gray-btn col-md-1">
+                    <span>打印</span>
+                </div>
+            </div>
+            <!-- 搜索框部分结束 -->
+
+            <!-- 基础资料表单开始 -->
+            <div style="display:flex;align-items:flex-start;">
+                <div style="width: 15%;display:inline-block">
+                    <div class="tree-container">
+                        <ul>
+                            <li v-for='item in companyTree'>{{item.big}}
+                                <ul>
+                                    <li v-for='items in item.small'>{{items}}</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="width: 85%;display:inline-block">
+                    <el-table :data="tableData" border style="width: 100%">
+                        <el-table-column prop="sequence" label="序号" ></el-table-column>
+                        <el-table-column prop="planCode" label="处分类型代码" ></el-table-column>
+                        <el-table-column prop="planName" label="处分类型名称"></el-table-column>
+                        <el-table-column prop="planMoney" label="处分金额" ></el-table-column>
+                        <el-table-column prop="planNum" label="处分份数"></el-table-column>
+                        <el-table-column prop="remark" label="备注">
+                            <template scope="scope">
+                                <input  type="text" :disabled="scope.$index!=isEdit" v-on:blur="finishEdit(scope.$index)"/>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="ifAllow" label="允许使用">
+                            <template scope="scope">
+                                <el-checkbox v-model="tableData[scope.$index].ifAllow" ></el-checkbox>
+                            </template>
+                        </el-table-column>
+                        <el-table-column prop="updateDate" label="修改时间"></el-table-column>
+                        <el-table-column label="操作">
+                            <template slot-scope="scope">
+                                <el-button v-on:click="handleEdit(scope.$index)" type="text"  size="small">修改</el-button>
+                                <!-- <el-button v-show='scope.$index==ifSave' v-on:click="handleSave(scope.$index)" type="text" size="small">保存</el-button>  -->
+                                <el-button v-on:click="handleDelete(scope.$index)" type="text" size="small">删除</el-button>
+                            </template>
+                        </el-table-column>
+                    </el-table> 
+                    <el-pagination class="text-right mt-10" background layout="total, prev, pager, next"  :page-count="totalPage" v-on:current-change="handleCurrentChange"></el-pagination>   
+                </div>
+            </div>
+            <!-- 基础资料表单结束 -->
+            <!-- 高級搜索開始 -->
+            <div class="high-search-container" v-if='highSearchShow'>
+                <ul class="search-ul">
+                    <li class="">
+                        <span>高级搜索</span>
+                    </li>
+                    <li class="">
+                        <span>超级搜索</span>
+                    </li>
+                    <li class="close-li" @click='closeHighSearch'>
+                        <img src="assets\layouts\layout2\img\close.png"/>
+                    </li>
+                </ul>
+
+                <div class="search-nav row">
+                    <div class="search-plan col-md-8">
+                        <span>查询方案</span>
+                    </div>
+            
+                    <div class="search-edit col-md-2">
+                        <span @click='doEdit' 
+                              v-if='!canEdit'>编辑</span>
+
+                        <span @click='noEdit'
+                              v-if='canEdit'>确定</span>
+                    </div>
+            
+                    <div class="search-all col-md-2">
+                        <span style="color:#CCCCCC">全部</span>
+                        <img src="assets\layouts\layout2\img\down.png"/>
+                    </div>
+                </div>
+
+                <ul class="this-week">
+                    <li v-if='week1'>
+                        <span>本周未审核</span>
+                        <div @click='cancelweek1'>
+                            <img class="white-one" 
+                                src="assets\layouts\layout2\img\whiteone.png"
+                                v-if='canEdit'>
+
+                            <img class="red-bg" 
+                                src="assets\layouts\layout2\img\redcircle.png" 
+                                v-if='canEdit'>
+                        </div>
+                    </li>
+
+                    <li v-if='week2'>
+                        <span>本周已审核</span>
+                        <div @click='cancelweek2'>
+                            <img class="white-one" 
+                                src="assets\layouts\layout2\img\whiteone.png"
+                                v-if='canEdit'>
+
+                            <img class="red-bg" 
+                                src="assets\layouts\layout2\img\redcircle.png" 
+                                v-if='canEdit'>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="row">
+                    <div class="search-condition col-md-10">
+                        <span>查询条件</span>
+                    </div>
+            
+                    <div class="search-add col-md-2">
+                        <span>添加</span>
+                    </div>
+                </div>
+
+                <div class="search-num">
+                    <input type="text" 
+                    class="form-control" 
+                    placeholder="请输入查询单号..." 
+                    style="width:80%">
+                </div>
+
+                <div class="data-status row">
+                        <div class="col-md-3" style='font-size:12px;margin-top:5px;margin-left:15px'>
+                            <span>单据状态</span>
+                        </div>
+            
+                        <ul  class="data-ul col-md-8 row" style="list-style:none">
+                            <li v-for='item in alreadyDo'>
+                                <el-checkbox v-model="item.status" ></el-checkbox>
+            
+                                <div class="status-ready">
+                                    <span>{{item.name}}</span>
+                                </div>
+                            </li>
+                        </ul>
+                </div>
+
+                <div class="business-status row">
+                    <div class="col-md-3" style='font-size:12px;margin-top:5px;margin-left:15px'>
+                        <span>业务状态</span>
+                    </div>
+            
+                    <ul  class="data-ul col-md-8 row" style="list-style:none">
+                        <li v-for='item in businessStatus'>
+                            <el-checkbox v-model="item.status" ></el-checkbox>
+        
+                            <div class="status-ready">
+                                <span>{{item.name}}</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                
+                <ul class="search-depend">
+                    <li class="row">
+                        <div class="col-md-3">
+                            <span>货号</span>
+                        </div>
+                        <div class="search-box col-md-7">
+                            <img src="assets\layouts\layout2\img\searchLogo.png" alt="">
+                            <input type="text" placeholder="请输入货号">
+                        </div> 
+                    </li>
+                    <li class="row">
+                        <div class="col-md-3">
+                            <span>供应商</span>
+                        </div>
+                        <div class="search-box col-md-7">
+                            <img src="assets\layouts\layout2\img\searchLogo.png" alt="">
+                            <input type="text" placeholder="请输入供应商">
+                        </div> 
+                    </li>
+                    <li class="row">
+                        <div class="col-md-3">
+                            <span>仓库</span>
+                        </div>
+                        <div class="search-box col-md-7">
+                            <img src="assets\layouts\layout2\img\searchLogo.png" alt="">
+                            <input type="text" placeholder="请输入仓库">
+                        </div> 
+                    </li>
+                    <li class="row">
+                        <div class="col-md-3">
+                            <span>PO单号</span>
+                        </div>
+                        <div class="search-box col-md-7">
+                            <img src="assets\layouts\layout2\img\searchLogo.png" alt="">
+                            <input type="text" placeholder="请输入PO单号">
+                        </div> 
+                    </li>
+                    <li class="row">
+                        <div class="col-md-3">
+                            <span>PO类型</span>
+                        </div>
+                        <div class="search-box col-md-7">
+                            <img src="assets\layouts\layout2\img\searchLogo.png" alt="">
+                            <input type="text" placeholder="请输入PO类型">
+                        </div> 
+                    </li>
+                    <li class="row">
+                        <div class="col-md-3">
+                            <span>PO品牌</span>
+                        </div>
+                        <div class="search-box col-md-7">
+                            <img src="assets\layouts\layout2\img\searchLogo.png" alt="">
+                            <input type="text" placeholder="请输入PO品牌">
+                        </div> 
+                    </li>
+                </ul>
+                
+                <div class="search-date">
+                    <ul>
+                        <li class="row">
+                            <div class="col-md-3">
+                                <span>开单日期</span>
+                            </div>
+
+                            <div class="choose-date col-md-8">
+                                <div class="choose-start">
+                                    <input type="text" placeholder="开始..."/>
+                                    <img src="assets\layouts\layout2\img\dateLogo.png" alt="">
+                                </div>
+                                <div class="choose-end">
+                                    <input type="text" placeholder="结束..."/>
+                                    <img src="assets\layouts\layout2\img\dateLogo.png" alt="">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="row">
+                            <div class="col-md-3">
+                                <span>生效日期</span>
+                            </div>
+
+                            <div class="choose-date col-md-8">
+                                <div class="choose-start">
+                                    <input type="text" placeholder="开始..."/>
+                                    <img src="assets\layouts\layout2\img\dateLogo.png" alt="">
+                                </div>
+                                <div class="choose-end">
+                                    <input type="text" placeholder="结束..."/>
+                                    <img src="assets\layouts\layout2\img\dateLogo.png" alt="">
+                                </div>
+                            </div>
+                        </li>
+
+                        <li class="row">
+                            <div class="col-md-3">
+                                <span>交货日期</span>
+                            </div>
+
+                            <div class="choose-date col-md-8">
+                                <div class="choose-start">
+                                    <input type="text" placeholder="开始..."/>
+                                    <img src="assets\layouts\layout2\img\dateLogo.png" alt="">
+                                </div>
+                                <div class="choose-end">
+                                    <input type="text" placeholder="结束..."/>
+                                    <img src="assets\layouts\layout2\img\dateLogo.png" alt="">
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="last-btn">
+                    <ul class="row">
+                        <li class="col-md-3">
+                            <span class="s-btn">查询</span>
+                        </li>
+
+                        <li class="col-md-3">
+                            <span class="r-btn">重置</span>
+                        </li>
+
+                        <li class="col-md-3">
+                            <span class="c-btn">取消</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- 高級搜索結束 -->
+
+            <!-- 树形结构开始 -->
+            
+            <!-- 树形结构结束 -->
+        </div>
+        <!-- 基础资料短-结束 -->
+
+            <!--[if lt IE 9]>
+<script src="assets/global/plugins/respond.min.js"></script>
+<script src="assets/global/plugins/excanvas.min.js"></script> 
+<script src="assets/global/plugins/ie8.fix.min.js"></script> 
+<![endif]-->
+            <!-- BEGIN CORE PLUGINS -->
+            <script src="assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+            <script src="assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+            <script src="assets/global/plugins/js.cookie.min.js" type="text/javascript"></script>
+            <script src="assets/global/scripts/app.min.js" type="text/javascript"></script>
+            <script src="assets/layouts/layout2/scripts/layout.min.js" type="text/javascript"></script>           
+            <!-- END THEME LAYOUT SCRIPTS -->      
+            <script src="vue2.5.11.min.js" type="text/javascript"></script>
+            <script src="vue-router v3.0.1.js" type="text/javascript"></script>
+
+            <script src="https://unpkg.com/vue/dist/vue.js" ></script>
+            <script src="https://unpkg.com/element-ui/lib/index.js" type="text/javascript"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
+            <script src="assets/layouts/layout2/scripts/midData.js" type="text/javascript"></script>
+            <script>
+                $(function () { $('.tree-container').jstree(); });
+                //获取浏览器高度
+                var win_height=$(window).height();
+                //主体部分高度
+                var con_height=win_height-50;
+                $(function(){
+                    $('.high-search-container').css({'height':con_height,'overflow':'hidden'})
+                });               
+            </script>
+            
+    </body>
+
+</html>
