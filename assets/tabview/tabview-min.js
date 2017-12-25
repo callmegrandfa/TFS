@@ -422,7 +422,7 @@ version: 2.5.0
 		var O = document.createElement("li");
 		var L = document.createElement("a");
 		var x = document.createElement('img');
-		x.src="assets/img/del-icon.png";
+		x.src="../assets/img/del-icon.png";
 		x.setAttribute("class", "del-icon"); 
 		L.href = K.href || "#";
 		O.appendChild(L);
