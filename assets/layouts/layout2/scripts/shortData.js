@@ -105,6 +105,31 @@ const vm=new Vue({
 		
 	},
 	methods:{
+		get:function(){// 发送ajax请求---get后面括号参数为请求数据的地址
+			// 为给定 ID 的 user 创建请求
+			let self = this;
+			self.axios.get('/user?ID=12345')
+			.then(function (response) {//成功，response为返回的数据
+			console.log(response);
+			})
+			.catch(function (error) {//失败
+			console.log(error);
+			});
+		},
+		post:function(){// 发送ajax请求---post
+			let self = this;
+			self.axios.post('/user', {
+				firstName: 'Fred',
+				lastName: 'Flintstone'
+			  })
+			  .then(function (response) {
+				console.log(response);
+			  })
+			  .catch(function (error) {
+				console.log(error);
+			  });
+		},
+
 		handleEdit:function(index){//表格内编辑操作
 			this.isEdit=index;//当选中行的索引值与列表中索引值相同，则编辑！
 		},
