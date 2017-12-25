@@ -1,0 +1,131 @@
+$backgroundColor:#eef1f5;//背景色
+$darkGrey:#BCBCBC;//辅助文字色
+$inputBgcolor:#fff;//每项背景色
+div{
+    overflow: hidden;
+}
+body{
+    background-color: $backgroundColor;
+    .noPadding{
+        padding: 0;              
+    }
+    .getPadding{
+        padding: 10px 0 10px 15px;
+    }
+    /* 收起按钮 */
+    .upBtn{
+        color: $darkGrey;
+        cursor: pointer;
+        font-size: 12px;
+        text-decoration: none;
+        line-height: 40px;
+        .el-icon-arrow-down{
+            margin-left: 10px;
+        }
+    }
+    .detailForm{
+        margin-top: 25px;
+        .bgcolor{
+            background-color: $inputBgcolor;
+            border-radius: 2px;
+            padding: 0;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            height: 34px;
+            /* element ui */
+            .el-select{
+                display: block;
+                width: 70%;
+                height: 34px;
+                float: left;
+                border: none;
+                z-index: 1;
+                .el-input{
+                    height: 100%;
+                    input{
+                        border: none;
+                        border-radius: 0;
+                        height: 100%;
+                    }
+                }
+            }
+            label{
+                line-height: 35px;
+                display: block;
+                padding-left: 5px;
+                width: 30%;
+                height: 100%;
+                float: left;
+                color: $darkGrey;
+                font-weight: normal;
+                z-index: 2;
+            }
+            .formComponent{
+                display: block;
+                width: 70%;
+                height: 34px;
+                float: left;
+                border: none;
+                z-index: 1;
+                padding-left: 15px;
+            }
+            .formComponent:focus{
+                outline: none;
+            }          
+            .formComponent[disabled]{
+                color:$darkGrey ;
+                background-color: #fff;
+           }
+           
+        }
+        .row{
+            margin-bottom: 15px;
+            .chooseType{
+                margin-top: 9px;
+            }
+            
+        }
+        .tabZoo {
+            background-color: #fff;
+            .nav-tabs {
+                 li{
+                    margin-bottom: 0;   
+                    a{
+                        color: $darkGrey;
+                    }
+                    a:hover{
+                        border-radius: 0;
+                    }
+                }
+                li.active a{
+                    border: none;
+                    color: #EA7587;
+                    border-bottom: 2px solid #EA7587;
+                }
+            }   
+            .tab-content {
+
+              .getMargin{ margin-right: 15px;}
+              .bgcolor{
+                border: 1px solid $darkGrey;
+                }
+                
+            }
+            
+        }
+        .operationBtn{
+            .btn-info{
+                margin-right: 10px;
+                background-color: #82AAFC;
+            }
+        }
+    }
+}
+
+
+/* 输入框 placeholder字体颜色*/
+::-webkit-input-placeholder {color:$darkGrey;}
+:-moz-placeholder {color:$darkGrey;}
+::-moz-placeholder {color:$darkGrey;}
+:-ms-input-placeholder {color:$darkGrey;}
+
