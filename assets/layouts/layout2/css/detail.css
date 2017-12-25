@@ -1,0 +1,103 @@
+@charset "UTF-8";
+div {
+  overflow: hidden; }
+
+body {
+  background-color: #eef1f5;
+  /* 收起按钮 */ }
+  body .noPadding {
+    padding: 0; }
+  body .getPadding {
+    padding: 10px 0 10px 15px; }
+  body .upBtn {
+    color: #BCBCBC;
+    cursor: pointer;
+    font-size: 12px;
+    text-decoration: none;
+    line-height: 40px; }
+    body .upBtn .el-icon-arrow-down {
+      margin-left: 10px; }
+  body .detailForm {
+    margin-top: 25px; }
+    body .detailForm .bgcolor {
+      background-color: #fff;
+      border-radius: 2px;
+      padding: 0;
+      margin-top: 5px;
+      margin-bottom: 5px;
+      height: 34px;
+      /* element ui */ }
+      body .detailForm .bgcolor .el-select {
+        display: block;
+        width: 70%;
+        height: 34px;
+        float: left;
+        border: none;
+        z-index: 1; }
+        body .detailForm .bgcolor .el-select .el-input {
+          height: 100%; }
+          body .detailForm .bgcolor .el-select .el-input input {
+            border: none;
+            border-radius: 0;
+            height: 100%; }
+      body .detailForm .bgcolor label {
+        line-height: 35px;
+        display: block;
+        padding-left: 5px;
+        width: 30%;
+        height: 100%;
+        float: left;
+        color: #BCBCBC;
+        font-weight: normal;
+        z-index: 2; }
+      body .detailForm .bgcolor .formComponent {
+        display: block;
+        width: 70%;
+        height: 34px;
+        float: left;
+        border: none;
+        z-index: 1;
+        padding-left: 15px; }
+      body .detailForm .bgcolor .formComponent:focus {
+        outline: none; }
+      body .detailForm .bgcolor .formComponent[disabled] {
+        color: #BCBCBC;
+        background-color: #fff; }
+    body .detailForm .row {
+      margin-bottom: 15px; }
+      body .detailForm .row .chooseType {
+        margin-top: 9px; }
+    body .detailForm .tabZoo {
+      background-color: #fff; }
+      body .detailForm .tabZoo .nav-tabs li {
+        margin-bottom: 0; }
+        body .detailForm .tabZoo .nav-tabs li a {
+          color: #BCBCBC; }
+        body .detailForm .tabZoo .nav-tabs li a:hover {
+          border-radius: 0; }
+      body .detailForm .tabZoo .nav-tabs li.active a {
+        border: none;
+        color: #EA7587;
+        border-bottom: 2px solid #EA7587; }
+      body .detailForm .tabZoo .tab-content .getMargin {
+        margin-right: 15px; }
+      body .detailForm .tabZoo .tab-content .bgcolor {
+        border: 1px solid #BCBCBC; }
+    body .detailForm .operationBtn .btn-info {
+      margin-right: 10px;
+      background-color: #82AAFC; }
+
+/* 输入框 placeholder字体颜色*/
+::-webkit-input-placeholder {
+  color: #BCBCBC; }
+
+:-moz-placeholder {
+  color: #BCBCBC; }
+
+::-moz-placeholder {
+  color: #BCBCBC; }
+
+:-ms-input-placeholder {
+  color: #BCBCBC; }
+
+/*# sourceMappingURL=detail.css.map */
