@@ -8,6 +8,7 @@ const vm=new Vue({
 			week2:true,
 			isChoose:true,
 			noChoose:false,
+			data1:'',
 			inputIndex:'',
 			alreadyDo:[{name:'已审核',status:true},//高级搜索单据状态
 					   {name:'已送审',status:true},

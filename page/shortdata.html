@@ -74,7 +74,7 @@
                     </div>
                 </div>
                 <div style="width: 85%;display:inline-block">
-                    <el-table :data="tableData" border style="width: 100%">
+                    <el-table :data="tableData" border style="width: 100%" stripe>
                         <el-table-column prop="sequence" label="序号" ></el-table-column>
                         <el-table-column prop="planCode" label="班次方案代码" ></el-table-column>
                         <el-table-column prop="planName" label="班次方案名称"></el-table-column>
@@ -276,14 +276,19 @@
                             </div>
 
                             <div class="choose-date col-md-8">
-                                <div class="choose-start">
+                                <!-- <div class="choose-start">
                                     <input type="text" placeholder="开始..."/>
                                     <img src="../assets\layouts\layout2\img\dateLogo.png" alt="">
                                 </div>
                                 <div class="choose-end">
                                     <input type="text" placeholder="结束..."/>
                                     <img src="../assets\layouts\layout2\img\dateLogo.png" alt="">
-                                </div>
+                                </div> -->
+                                <el-date-picker
+                                v-model="data1"
+                                type="date"
+                                placeholder="选择日期">
+                              </el-date-picker>
                             </div>
                         </li>
 
@@ -340,10 +345,6 @@
                 </div>
             </div>
             <!-- 高級搜索結束 -->
-
-            <!-- 树形结构开始 -->
-            
-            <!-- 树形结构结束 -->
         </div>
         <!-- 基础资料短-结束 -->
 
