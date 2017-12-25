@@ -9,7 +9,7 @@ const vm=new Vue({
 			isChoose:true,
 			noChoose:false,
 			inputIndex:'',
-			alreadyDo:[{name:'已审核',status:true},
+			alreadyDo:[{name:'已审核',status:true},//高级搜索单据状态
 					   {name:'已送审',status:true},
 					   {name:'已结案',status:true},
 					   {name:'已作废',status:false},
@@ -19,7 +19,7 @@ const vm=new Vue({
 			businessStatus:[{name:'已生成',status:true},
 							{name:'未生成',status:true}],	
 
-			companyTree:[{
+			companyTree:[{//左边树形
 				big:'上级1',
 				small:['下级1','下级2','下级3','下级4']
 				},{
@@ -122,8 +122,11 @@ const vm=new Vue({
 		}
 		
 	},
+	// created:function(){
+	//     this.ajaxGet()//初始化页面数据
+	// },
 	methods:{
-		get:function(){// 发送ajax请求---get后面括号参数为请求数据的地址
+		ajaxGet:function(){// 发送ajax请求---get后面括号参数为请求数据的地址
 			// 为给定 ID 的 user 创建请求
 			let self = this;
 			self.axios.get('/user?ID=12345')
@@ -134,7 +137,7 @@ const vm=new Vue({
 			console.log(error);
 			});
 		},
-		post:function(){// 发送ajax请求---post
+		ajaxPost:function(){// 发送ajax请求---post
 			let self = this;
 			self.axios.post('/user', {
 				firstName: 'Fred',
