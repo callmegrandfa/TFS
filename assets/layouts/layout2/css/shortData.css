@@ -3,14 +3,8 @@
     border: 1px solid #cccccc;
     padding-left: 30px;
     padding-right: 30px;
-    /* position: relative */
 }
 .tree-container{
-    /* position: absolute;
-    left: 0;
-    top: 0;
-    z-index: 20000;
-    width: 258px; */
     background: white;
 }
 .search-component{
@@ -94,7 +88,8 @@
     float: right;
     width: 30%;
     background: white;
-    box-shadow: 0 0 0 2px rgba(50, 50, 50, .2);
+    border-left: 3px solid rgba(50, 50, 50, .2);
+    height: 100%;
 }
 
 .search-ul{
